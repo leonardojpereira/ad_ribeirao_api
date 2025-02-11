@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Project.Application.Features.Queries.GetAllUsers;
 using Project.Application.Features.Commands.UpdateUser;
 using Project.Application.Features.Queries.GetUserById;
+using Project.Application.Features.Commands.DeleteUser;
 
 
 namespace Project.WebApi.Controllers
@@ -89,6 +90,26 @@ namespace Project.WebApi.Controllers
             var command = new UpdateUserCommand(request, id);
             var result = await _mediatorHandler.Send(command);
             return Response(result);
+        }
+
+
+        /// <summary>
+        /// Remove um usuário do sistema com base no ID fornecido.
+        /// </summary>
+        /// <param name="id">ID único do usuário a ser excluído.</param>
+        /// <returns>Status da operação de exclusão.</returns>
+        /// <response code="200">Usuário excluído com sucesso.</response>
+        /// <response code="401">Usuário não autorizado.</response>
+        /// <response code="404">Usuário não encontrado.</response>
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("DeleteUser/{id}")]
+        // [SwaggerOperation(Summary = "Remove um usuário", Description = "Exclui um usuário com base no ID fornecido.")]
+        [ProducesResponseType(typeof(DeleteUserCommandResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteUser([FromRoute] Guid id)
+        {
+            return Response(await _mediatorHandler.Send(new DeleteUserCommand(id)));
         }
 
     }
