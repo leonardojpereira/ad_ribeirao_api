@@ -12,15 +12,17 @@ internal class UserSeed : IEntityTypeConfiguration<User>
         builder.HasData(
             new User
             (
+                id: new Guid("f7d4d7a9-4d1e-4a8d-9a8e-9b9a9b9a9b9e"),
                 username: "admin",
-                password: "123-!@#-123-!@#",
+                password: "secretaria",
                 email: "admin@admin.com",
                 roleId: RoleConstants.Admin
             ),
             new User
             (
+                id: new Guid("f7d4d7a9-4d1e-4a8d-9a8e-9b9a9b9a9b9f"),
                 username: "user",
-                password: "123-!@#-123-!@#",
+                password: "secretaria",
                 email: "user@user.com",
                 roleId: RoleConstants.User
             )

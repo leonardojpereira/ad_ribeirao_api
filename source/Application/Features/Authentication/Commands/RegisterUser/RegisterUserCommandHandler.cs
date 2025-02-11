@@ -31,6 +31,7 @@ namespace Project.Application.Features.Commands.RegisterUser
             }
 
             var user = new User(
+                id: Guid.NewGuid(),
                 username: command.Request.Username,
                 password: command.Request.Password,
                 email: command.Request.Email,

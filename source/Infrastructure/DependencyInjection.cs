@@ -25,7 +25,7 @@ public static class DependencyInjection
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
 
-                options.UseSqlServer(connectionString); 
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
 
 
         });
